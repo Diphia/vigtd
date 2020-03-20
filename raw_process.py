@@ -5,24 +5,13 @@
 
 import os
 from datetime import date
+from task_object import task
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
 
 raw_inbox = CONTEXT_LOC + 'raw_inbox'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 done_list = CONTEXT_LOC + 'done_list.csv'
-
-class task(object):
-    def __init__(self, name, tag, ddl):
-        self.name = name
-        self.tag = tag
-        self.ddl = ddl
-    def get_name(self):
-        return self.name
-    def get_tag(self):
-        return self.tag
-    def get_ddl(self):
-        return self.ddl
 
 def call_vim_single_line(prompt):
     with open('/tmp/raw_process_call_vim_single_line','w') as f:
