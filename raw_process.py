@@ -71,7 +71,7 @@ def write_to_done(task_list_done):
     try:
         f = open(done_list,'a')
         for task in task_list_done:
-            to_write = '\"' + task.get_name() + '\",\"\",\"' + date.today().strftime("%Y-%m-%d") + '\"\n'
+            to_write = '\"' + task.get_name() + '\",\"' + date.today().strftime("%Y-%m-%d") + '",\"' + date.today().strftime("%Y-%m-%d") + '\"\n'
             f.write(to_write)
     finally:
         if(f):
@@ -88,6 +88,3 @@ def reorganize():
     write_to_todo(task_list_todo)
     write_to_done(task_list_done)
     clear_file(raw_inbox)
-
-if __name__=="__main__":
-    reorganize()

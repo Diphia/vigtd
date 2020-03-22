@@ -11,6 +11,8 @@ class task(object):
         self.name = name
         self.tag = tag
         self.ddl = ddl
+        self.temp_linum = 0
+        self.temp_id = ''
     def get_name(self):
         return self.name
     def get_tag(self):
@@ -24,3 +26,11 @@ class task(object):
         offset_obj = ddl_obj - today_obj
         offset = offset_obj.days
         return offset
+    def set_temp_linum(self,linum):
+        self.temp_linum = linum
+    def get_temp_linum(self):
+        return self.temp_linum
+    def set_temp_id(self,temp_id):
+        self.temp_id = temp_id
+    def get_temp_id(self):
+        return self.temp_id
