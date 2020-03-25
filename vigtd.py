@@ -4,6 +4,7 @@
 # This script is used to receive the commands and call deeper functions
 
 import sys
+import os
 #from commands import add,show,raw_process,done
 import commands
 
@@ -34,10 +35,15 @@ def command_caller(command_list):
         print(commands.done(command_list[1].strip()))
         print('-----------------------------')
         commands.show('todo')
+    elif(command_list[0] == 'repeatgen'):
+        commands.repeatgen()
+    elif(command_list[0] == 'clear'):
+        os.system('clear')
     else:
         print('command not found: ' + command_list[0])
 
 def shell():
+    commands.repeatgen()
     while(True):
         try:
             print('vigtd > ',end='')

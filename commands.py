@@ -6,9 +6,10 @@
 import os
 from datetime import date
 from raw_process import reorganize
-from show_tasks import show_raw,show_todo
+from show_tasks import show_raw,show_todo,show_done
 from read_todo import read_todo
 from select_list import select_list
+from repeat_generator import repeat_generator
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
 raw_inbox = CONTEXT_LOC + 'raw_inbox'
@@ -31,9 +32,9 @@ def show(type): # show raw_inbox, todo_list or done_list
         elif(type == 'todo'):
             print(show_todo())
             break
-        #elif(type == 'done'):
-            #print(show_done())
-            #break
+        elif(type == 'done'):
+            print(show_done(20))
+            break
         else:
             print('Please speciffic [raw], [todo] or [done] to show.')
             break
@@ -64,6 +65,9 @@ def done(task_id):
     os.system(shell_command)
     message = 'Done : ' + target_task.get_name()
     return message
+
+def repeatgen():
+    repeat_generator()
 
 if __name__=="__main__":
     #add()

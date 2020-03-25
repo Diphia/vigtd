@@ -7,6 +7,7 @@ import os
 from datetime import date
 from task_object import task
 from read_todo import read_todo
+from read_done import read_done
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
 
@@ -45,5 +46,13 @@ def show_todo():
     content = add_to_content(task_list_tomorrow,content,'(b) Tomorrow')
     content = add_to_content(task_list_today,content,'(a) Today')
     content = add_to_content(task_list_detained,content,'(z) Detained')
+    return content
+
+def show_done(line_amount):
+    line_amount = 20
+    task_list = read_done()
+    content = ''
+    for t in task_list:
+        content = content + t.get_name() + ', Plan@' + t.get_ddl() + ', Done@' + t.get_done_date() + '\n'
     return content
 
