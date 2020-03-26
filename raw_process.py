@@ -14,18 +14,6 @@ raw_inbox = CONTEXT_LOC + 'raw_inbox'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 done_list = CONTEXT_LOC + 'done_list.csv'
 
-'''
-def call_vim_single_line(prompt):
-    with open('/tmp/raw_process_call_vim_single_line','w') as f:
-        f.truncate()
-        f.write(prompt+' : ')
-    os.system('vim /tmp/raw_process_call_vim_single_line')
-    with open('/tmp/raw_process_call_vim_single_line','r') as f:
-        line = f.read().split('\n')[0]
-        content = line.split(':')[1].strip()
-    return content
-    '''
-
 def process_line(line):
     task_name = line.strip()
     print('Task: ',end = '')

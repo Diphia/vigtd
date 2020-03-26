@@ -104,10 +104,3 @@ def cancel(task_id):
     message = 'Cancelled : ' + target_task.get_name()
     return message
 
-if __name__=="__main__":
-    #add()
-    #raw_process()
-    #show('todo')
-    #print(done('c1'))
-    postpone('d1','2020-03-30')
-    #cancel('d1')
