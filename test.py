@@ -3,8 +3,12 @@
 # diphia@2020
 # This script is used to 
 
-from task_object import task
+import os
+
+CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
+test_file = CONTEXT_LOC + 'test.csv'
+
+from utilities import remove_line_from_file
 
 if __name__=="__main__":
-    temp_task = task('task1','TODO','2020-03-21')
-    print(temp_task.get_offset_day())
+    remove_line_from_file(test_file,6)

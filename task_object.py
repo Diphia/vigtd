@@ -4,7 +4,7 @@
 # This script is used to set the task object
 
 import os
-from datetime import date,datetime,timedelta
+from datetime import datetime,timedelta
 
 class task(object):
     def __init__(self, name, tag, ddl):

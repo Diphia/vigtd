@@ -6,8 +6,7 @@
 import os
 from datetime import date
 from task_object import task
-from read_todo import read_todo
-from read_done import read_done
+from utilities import read_todo,read_done
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
 
@@ -32,7 +31,11 @@ def add_to_content(task_list,content,title):
     #content += '======================================\n'
     counter = 1
     for task in task_list:
-        content = content + '    (' + str(counter) + ') ' + task.get_name() + ' , DDL = ' + task.get_ddl() + '\n'
+        #if(task_list == task_list_today or task_list == task_list_tomorrow):
+        if(title == '(a) Today' or title == '(b) Tomorrow'):
+            content = content + '    (' + str(counter) + ') ' + task.get_name() + '\n'
+        else:
+            content = content + '    (' + str(counter) + ') ' + task.get_name() + ' , DDL = ' + task.get_ddl() + '\n'
         counter += 1
     #content += '\n'
     return content

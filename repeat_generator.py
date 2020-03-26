@@ -5,8 +5,7 @@
 
 import os
 from task_object import repeat_task
-from read_todo import read_todo
-from read_done import read_done
+from utilities import read_todo,read_done
 
 CONTEXT_LOC = os.environ['HOME'] + '/.vigtd_context/'
 generator_config = CONTEXT_LOC + 'repeat_tasks.csv'

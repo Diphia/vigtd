@@ -5,8 +5,9 @@
 
 import sys
 import os
-#from commands import add,show,raw_process,done
 import commands
+
+from utilities import call_vim_single_line
 
 def command_caller(command_list):
     if(command_list[0] == 'add'):
@@ -39,8 +40,19 @@ def command_caller(command_list):
         commands.repeatgen()
     elif(command_list[0] == 'clear'):
         os.system('clear')
+    elif(command_list[0] == 'pp' or command_list[0] == 'postpone'):
+        if(len(command_list) == 3):
+            print(commands.postpone(command_list[1].strip(),command_list[2].strip()))
+        else:
+            content = call_vim_single_line('Enter target date')
+            print(commands.postpone(command_list[1].strip(),content))
+        commands.show('todo')
+    elif(command_list[0] == 'cancel'):
+        print(commands.cancel(command_list[1].strip()))
+        commands.show('todo')
     else:
         print('command not found: ' + command_list[0])
+        commands.show('todo')
 
 def shell():
     commands.repeatgen()
@@ -57,6 +69,6 @@ if __name__=="__main__":
     if(len(sys.argv) == 1):
         shell()
     else:
-        sys.argv.pop(0)
+        sys.argv.pop(0) # pop program name 
         command_list = sys.argv
         command_caller(command_list)
