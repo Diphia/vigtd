@@ -6,7 +6,7 @@
 import os
 from datetime import date,datetime,timedelta
 from raw_process import reorganize
-from show_tasks import show_raw,show_todo,show_done
+from show_tasks import show_raw,show_todo,show_done,show_cancelled
 from utilities import select_list,retrieval_task_by_id,call_vim_single_line,remove_line_from_file,add_line_to_file
 from repeat_generator import repeat_generator
 
@@ -15,6 +15,7 @@ raw_inbox = CONTEXT_LOC + 'raw_inbox'
 done_list = CONTEXT_LOC + 'done_list.csv'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 cancelled_list = CONTEXT_LOC + 'cancelled.csv'
+generator_config = CONTEXT_LOC + 'repeat_tasks.csv'
 
 def add():  # add new raw contents
     temp_file_path = '/tmp/vigtd_commands_add_buffer'
@@ -34,6 +35,9 @@ def show(type): # show raw_inbox, todo_list or done_list
             break
         elif(type == 'done'):
             print(show_done(20))
+            break
+        elif(type == 'cancel' or type == 'cancelled'):
+            print(show_cancelled(5))
             break
         else:
             print('Please speciffic [raw], [todo] or [done] to show.')
@@ -86,11 +90,17 @@ def postpone(task_id,new_ddl_or_offset):
         new_ddl = new_ddl_obj.strftime("%Y-%m-%d")
     else:
         new_ddl = new_ddl_or_offset
+    '''
     sed_add = "sed -i \'$a" + '\"' + target_task.get_name() + '\",\"' + new_ddl + "\"\' " + todo_list 
-    print(sed_add)
     os.system(sed_add)
+    '''
+    content = '\"' + target_task.get_name() + '\",\"' + new_ddl + '\"\n'
+    add_line_to_file(todo_list,content)
+    '''
     sed_delete = "sed \'" + str(target_task.get_temp_linum()) + "d\' -i " + todo_list
     os.system(sed_delete)
+    '''
+    remove_line_from_file(todo_list,target_task.get_temp_linum)
     message = 'Postponed : ' + target_task.get_name()
     return message
 
@@ -104,3 +114,5 @@ def cancel(task_id):
     message = 'Cancelled : ' + target_task.get_name()
     return message
 
+def repeat_edit():
+    os.system('vim ' + generator_config)

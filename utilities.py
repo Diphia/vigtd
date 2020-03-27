@@ -4,6 +4,7 @@
 # This script is used to include some useful functions for vigtd
 
 import os
+import re
 from task_object import task
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
@@ -119,4 +120,13 @@ def add_line_to_file(target_file,content):
     with open(target_file,'a') as f:
         f.write(content)
 
-    
+def parse_csv(target_file): # read a file and get the fields of a csv file, return as a list of lists
+    fields_list = []
+    with open(target_file,'r') as f:
+        for line in f:
+            line = line.strip()
+            fields_list.append(re.split('(?<=\"),(?=\")',line))
+        for i in range(len(fields_list)):
+            for j in range(len(fields_list[i])):
+                fields_list[i][j] = fields_list[i][j][1:-1]
+    return fields_list

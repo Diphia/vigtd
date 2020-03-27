@@ -4,15 +4,17 @@
 # This script is used to show stored tasks
 
 import os
+import re
 from datetime import date
 from task_object import task
-from utilities import read_todo,read_done
+from utilities import read_todo,read_done,parse_csv
 
 CONTEXT_LOC = os.environ['HOME']+'/.vigtd_context/'
 
 raw_inbox = CONTEXT_LOC + 'raw_inbox'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 done_list = CONTEXT_LOC + 'done_list.csv'
+cancelled_list = CONTEXT_LOC + 'cancelled.csv'
 
 def show_raw():
     with open(raw_inbox,'r') as f:
@@ -59,3 +61,17 @@ def show_done(line_amount):
         content = content + t.get_name() + ', Plan@' + t.get_ddl() + ', Done@' + t.get_done_date() + '\n'
     return content
 
+
+def show_cancelled(amount):
+    content = ''
+    fields_list = parse_csv(cancelled_list)
+    for i in reversed(range(len(fields_list))):
+        count = len(fields_list) - i
+        if(count == amount):
+            break
+        content += '------------------------------\n'
+        content += 'Task: {0}\n'.format(fields_list[i][0])
+        content += 'Planned DDL: {0}\n'.format(fields_list[i][1])
+        content += 'Cancelled Date : {0}\n'.format(fields_list[i][2])
+        content += 'Comment : {0}\n'.format(fields_list[i][3])
+    return content

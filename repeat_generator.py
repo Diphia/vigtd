@@ -33,6 +33,3 @@ def repeat_generator():
             task_peroid = line.split(',')[1].strip()[1:-1]
             temp_task = repeat_task(task_name,task_peroid)
             list_writer(temp_task,done_list,todo_list)
-
-if __name__=="__main__":
-    repeat_generator()

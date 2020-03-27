@@ -50,6 +50,9 @@ def command_caller(command_list):
     elif(command_list[0] == 'cancel'):
         print(commands.cancel(command_list[1].strip()))
         commands.show('todo')
+    elif(command_list[0] == 'editrep' or command_list[0] == 'editrepeat' or command_list[0] == 'editrp'):
+        commands.repeat_edit()
+        commands.repeatgen()
     else:
         print('command not found: ' + command_list[0])
         commands.show('todo')
