@@ -50,32 +50,13 @@ def raw_process():
     reorganize()
 
 def done(task_id):
-    '''
-    task_id = task_id.strip()
-    task_type = task_id[0]
-    target_list = select_list(task_type)
-    if(target_list == []):
-        message = 'Invalid Task Type'
-        return message
-    for t in target_list:
-        if(t.get_temp_id() == task_id):
-            target_task = t
-            break
-    try:
-        target_task
-    except NameError:
-        message = 'Invalid Task Number'
-        return message
-        '''
     try:
         target_task = retrieval_task_by_id(task_id)
     except:
         message = 'Task Not Found'
-    with open(done_list,'a') as f:
-        to_write = '\"' + target_task.get_name() + '\",\"' + target_task.get_ddl() + '",\"' + datetime.today().strftime("%Y-%m-%d") + '\"\n'
-        f.write(to_write)
-    shell_command = "sed \'" + str(target_task.get_temp_linum()) + "d\' -i " + todo_list
-    os.system(shell_command)
+    to_write = '\"{0}\",\"{1}\",\"{2}\",\"{3}\"\n'.format(target_task.get_name(),target_task.get_ddl(),datetime.today().strftime("%Y-%m-%d"),target_task.get_parent())
+    add_line_to_file(done_list,to_write)
+    remove_line_from_file(todo_list,target_task.get_temp_linum())
     message = 'Done : ' + target_task.get_name()
     return message
 
@@ -112,10 +93,18 @@ def cancel(task_id):
     comment = call_vim_single_line('Reason')
     target_linum = target_task.get_temp_linum()
     remove_line_from_file(todo_list,target_linum)
-    content = '\"'+target_task.get_name() + '\",\"' + target_task.get_ddl() + '\",\"' + datetime.today().strftime("%Y-%m-%d") + '\",\"' + comment + '\"\n'
+    content = '\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"'.format(target_task.get_name(),target_task.get_ddl(),datetime.today().strftime("%Y-%m-%d"),comment,target_task.get_parent())
+    #content = '\"'+target_task.get_name() + '\",\"' + target_task.get_ddl() + '\",\"' + datetime.today().strftime("%Y-%m-%d") + '\",\"' + comment + '\"\n'
     add_line_to_file(cancelled_list,content)
     message = 'Cancelled : ' + target_task.get_name()
     return message
 
 def repeat_edit():
     os.system('vim ' + generator_config)
+
+def add_child():
+    parent = call_vim_single_line('Name of parent')
+    task_name = call_vim_single_line('Task name')
+    task_ddl = call_vim_single_line('DDL')
+    to_write = '\"{0}\",\"{1}\",\"{2}\"\n'.format(task_name,task_ddl,parent)
+    add_line_to_file(todo_list,to_write)

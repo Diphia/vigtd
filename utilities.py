@@ -12,6 +12,17 @@ raw_inbox = CONTEXT_LOC + 'raw_inbox'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 done_list = CONTEXT_LOC + 'done_list.csv'
 
+def parse_csv(target_file): # read a file and get the fields of a csv file, return as a list of lists
+    fields_list = []
+    with open(target_file,'r') as f:
+        for line in f:
+            line = line.strip()
+            fields_list.append(re.split('(?<=\"),(?=\")',line))
+        for i in range(len(fields_list)):
+            for j in range(len(fields_list[i])):
+                fields_list[i][j] = fields_list[i][j][1:-1]
+    return fields_list
+
 def read_todo():
     task_list_detained = []
     task_list_today = []
@@ -24,8 +35,13 @@ def read_todo():
         for line in f:
             task_name = line.split(',')[0].strip()[1:-1]
             task_ddl = line.split(',')[1].strip()[1:-1]
+            try:
+                task_parent = line.split(',')[2].strip()[1:-1]
+            except:
+                task_parent = ''
             temp_task = task(task_name,'',task_ddl)
             temp_task.set_temp_linum(linum)
+            temp_task.set_parent(task_parent)
             if(temp_task.get_ddl() == 'long'):
                 temp_task.set_temp_id('e'+str(len(task_list_long)+1))
                 task_list_long.append(temp_task)
@@ -120,13 +136,3 @@ def add_line_to_file(target_file,content):
     with open(target_file,'a') as f:
         f.write(content)
 
-def parse_csv(target_file): # read a file and get the fields of a csv file, return as a list of lists
-    fields_list = []
-    with open(target_file,'r') as f:
-        for line in f:
-            line = line.strip()
-            fields_list.append(re.split('(?<=\"),(?=\")',line))
-        for i in range(len(fields_list)):
-            for j in range(len(fields_list[i])):
-                fields_list[i][j] = fields_list[i][j][1:-1]
-    return fields_list

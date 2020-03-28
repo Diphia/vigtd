@@ -53,6 +53,9 @@ def command_caller(command_list):
     elif(command_list[0] == 'editrep' or command_list[0] == 'editrepeat' or command_list[0] == 'editrp'):
         commands.repeat_edit()
         commands.repeatgen()
+    elif(command_list[0] == 'addto' or command_list[0] == 'addchild'):
+        commands.add_child()
+        commands.show('todo')
     else:
         print('command not found: ' + command_list[0])
         commands.show('todo')

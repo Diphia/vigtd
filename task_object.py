@@ -14,6 +14,7 @@ class task(object):
         self.temp_linum = 0
         self.temp_id = ''
         self.done_date = ''
+        self.parent = ''
     def get_name(self):
         return self.name
     def get_tag(self):
@@ -39,6 +40,10 @@ class task(object):
         self.done_date = done_date
     def get_done_date(self):
         return self.done_date
+    def set_parent(self,parent):
+        self.parent = parent
+    def get_parent(self):
+        return self.parent
 
 class repeat_task(object):
     def __init__(self,name,peroid):
