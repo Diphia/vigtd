@@ -135,4 +135,3 @@ def remove_line_from_file(target_file,linum):
 def add_line_to_file(target_file,content):
     with open(target_file,'a') as f:
         f.write(content)
-

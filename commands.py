@@ -74,17 +74,10 @@ def postpone(task_id,new_ddl_or_offset):
         new_ddl = new_ddl_obj.strftime("%Y-%m-%d")
     else:
         new_ddl = new_ddl_or_offset
-    '''
-    sed_add = "sed -i \'$a" + '\"' + target_task.get_name() + '\",\"' + new_ddl + "\"\' " + todo_list 
-    os.system(sed_add)
-    '''
-    content = '\"' + target_task.get_name() + '\",\"' + new_ddl + '\"\n'
+    #content = '\"' + target_task.get_name() + '\",\"' + new_ddl + '\"\n'
+    content = '\"{0}\",\"{1}\",\"{2}\"'.format(target_task.get_name(),new_ddl,target_task.get_parent())
     add_line_to_file(todo_list,content)
-    '''
-    sed_delete = "sed \'" + str(target_task.get_temp_linum()) + "d\' -i " + todo_list
-    os.system(sed_delete)
-    '''
-    remove_line_from_file(todo_list,target_task.get_temp_linum)
+    remove_line_from_file(todo_list,target_task.get_temp_linum())
     message = 'Postponed : ' + target_task.get_name()
     return message
 
