@@ -6,7 +6,7 @@
 import os
 from datetime import date,datetime,timedelta
 from raw_process import reorganize
-from show_tasks import show_raw,show_todo,show_done,show_cancelled
+from show_tasks import show_raw,show_todo,show_done,show_cancelled,show_repeat
 from utilities import select_list,retrieval_task_by_id,call_vim_single_line,remove_line_from_file,add_line_to_file
 from repeat_generator import repeat_generator
 
@@ -38,6 +38,9 @@ def show(type): # show raw_inbox, todo_list or done_list
             break
         elif(type == 'cancel' or type == 'cancelled'):
             print(show_cancelled(5))
+            break
+        elif(type == 'repeat'):
+            print(show_repeat())
             break
         else:
             print('Please speciffic [raw], [todo] or [done] to show.')

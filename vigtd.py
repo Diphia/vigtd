@@ -12,10 +12,10 @@ from utilities import call_vim_single_line
 def command_caller(command_list):
     if(command_list[0] == 'add'):
         commands.add()
-        print('Process raw now ? enter y to process, press any other key to skip > ',end = '')
-        select = input()
-        if(select == 'y'):
-            command_caller(['rawpro'])
+        #print('Process raw now ? enter y to process, press any other key to skip > ',end = '')
+        #select = input()
+        #if(select == 'y'):
+        command_caller(['rawpro'])
     elif(command_list[0] == 'rawpro'):
         commands.raw_process()
         print('-----------------------------')

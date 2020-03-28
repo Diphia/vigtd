@@ -15,6 +15,7 @@ raw_inbox = CONTEXT_LOC + 'raw_inbox'
 todo_list = CONTEXT_LOC + 'todo_list.csv'
 done_list = CONTEXT_LOC + 'done_list.csv'
 cancelled_list = CONTEXT_LOC + 'cancelled.csv'
+repeat_list = CONTEXT_LOC + 'repeat_tasks.csv'
 
 def show_raw():
     with open(raw_inbox,'r') as f:
@@ -74,4 +75,13 @@ def show_cancelled(amount):
         content += 'Planned DDL: {0}\n'.format(fields_list[i][1])
         content += 'Cancelled Date : {0}\n'.format(fields_list[i][2])
         content += 'Comment : {0}\n'.format(fields_list[i][3])
+    return content
+
+def show_repeat():
+    content = ''
+    fields_list = parse_csv(repeat_list)
+    for line in fields_list:
+        content += '------------------------------\n'
+        content += 'Task: {0}\n'.format(line[0])
+        content += 'Peroid: {0}\n'.format(line[1])
     return content
