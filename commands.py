@@ -75,7 +75,7 @@ def postpone(task_id,new_ddl_or_offset):
     else:
         new_ddl = new_ddl_or_offset
     #content = '\"' + target_task.get_name() + '\",\"' + new_ddl + '\"\n'
-    content = '\"{0}\",\"{1}\",\"{2}\"'.format(target_task.get_name(),new_ddl,target_task.get_parent())
+    content = '\"{0}\",\"{1}\",\"{2}\"\n'.format(target_task.get_name(),new_ddl,target_task.get_parent())
     add_line_to_file(todo_list,content)
     remove_line_from_file(todo_list,target_task.get_temp_linum())
     message = 'Postponed : ' + target_task.get_name()
